@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <h1><center>Login Page</center></h1>
+</head>
+<body>
+    <form id="product-form2">
+    <label for="">User name</label>
+    <input type ="text" id="name">
+    <br>
+    <label for="">password</label>
+    <input type="password" id="pwd">
+    <br>
+    <input type="submit" value="Login">
+    <input type="button" value="Forgot password" onclick="location.href='forgotpwd.html'">
+    </form>
+    <script>
+        document.getElementById("product-form2").addEventListener("submit",async function(f)
+        {
+          f.preventDefault()
+            try{
+              console.log("this is try")
+            var rusers = await fetch("https://backend-crm1.herokuapp.com/login");
+            
+            let data = await rusers.json()
+            
+  .then(function(Users) {
+ 
+
+    var a = document.getElementById("name").value
+    var b = document.getElementById("pwd").value
+    
+    for(var i=0;i<Users.length;i++)
+    {
+      console.log(Users.length)
+  if(a==Users[i].Username && b==Users[i].pwd)
+  {
+    
+      window.location="mainpage.html";
+      
+    
+    break;
+  }
+  else{
+    if(i==Users.length-1)
+    {
+    
+    alert("wrong credentials")
+    }
+   
+  }
+  
+    }
+  })
+}
+catch(error)
+            {
+                console.log(error);
+                
+            }
+        })
+    </script>
+</body>
+</html>

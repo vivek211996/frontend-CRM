@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <h1><center>Register Page</center></h1>
+
+  
+</head>
+<body>
+    <form id="product-form">
+    <label for="">User name</label>
+    <input type ="text" id="name">
+    <br>
+    <label for="">password</label>
+    <input type="password" id="pwd">
+    <br>
+    <label for="">re enter password</label>
+    <input type="password" id="pwd2">
+    <br>
+    <input type="submit" value="register">
+    <input type="button" value="Login" onclick="location.href='login.html'">
+    
+    </form>
+    <script>
+        document.getElementById("product-form").addEventListener("submit",async function(e)
+        {
+            e.preventDefault()
+        var p1= document.getElementById("pwd").value
+        var p2= document.getElementById("pwd2").value
+        console.log(p1)
+        console.log(p2)
+        if(p1==p2)
+
+{
+            try{
+           let data = await fetch("https://backend-crm1.herokuapp.com/register",{
+                method:"POST",
+                headers:{
+                    "content-type" : "application/json"
+                },
+                body: JSON.stringify({
+                    Username: document.getElementById("name").value,
+                    pwd: document.getElementById("pwd").value,
+                   
+                })
+            })
+            alert("Successfully registered, Now you can login")
+            console.log(data)
+            }
+
+            catch(error)
+            {
+                console.log(error)
+            }
+        }
+        else{
+            alert("pwds donot match pls re-enter")
+        }
+        })
+    </script>
+</body>
+</html>
